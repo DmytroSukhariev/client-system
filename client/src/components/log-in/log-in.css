@@ -1,0 +1,33 @@
+.form__go-sign-up {
+    position: absolute;
+    right:10px;
+    top:10px;
+    z-index:1;
+    padding:10px 20px;
+    text-decoration: none;
+}
+.form__form-label {
+    margin-top: 2rem;
+    font-size:28px;
+    display: inline-block;
+}
+.form__get-registered-label {
+    width:100%;
+}
+.form__content {
+    margin-top: 3.5rem;
+}
+.form__password {
+    margin-top: 2rem;
+}
+.form__log-in {
+    margin-top:2rem;
+}
+.form__get-registered {
+    margin-top: 3.5rem;
+}
+.form__errors {
+    display: block;
+    margin-top: 1.5rem;
+    visibility:hidden;
+}

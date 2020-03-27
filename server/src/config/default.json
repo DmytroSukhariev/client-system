@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "mongoUri": "mongodb+srv://kirbytwister:6xwjmoWlCyggw3Zs@cluster0-ayajx.mongodb.net/app?retryWrites=true&w=majority",
+    "jwtSecret": "ortem osu kek"
+}

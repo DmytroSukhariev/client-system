@@ -1,0 +1,75 @@
+html,body {
+    padding:0;
+    margin: 0;
+    width:100%;
+    overflow-x: hidden;
+}
+*,
+*::after,
+*::before {
+    box-sizing:border-box;
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 300;
+}
+h1,h2,h3,h4,h5,h6,p,div {
+    margin: 0;
+}
+input,textarea {
+    outline:none;
+    outline-offset: 0;
+    border:none;
+    margin-top: 1rem;
+    width:50%;
+    max-width:400px;
+    height:45px;
+    font-size:22px;
+    padding-left:20px;
+    padding-right: 10px;
+    border-radius: 4px;
+}
+textarea {
+    padding-top:8px;
+    height:15rem;
+}
+input[type="submit"],.form__go-sign-up {
+    color:white;
+    background-color:rgb(255, 99, 71);
+    font-weight: 400;
+    cursor: pointer;
+    margin-top: 0rem;
+}
+input[type="submit"] {
+    padding:10px 40px;
+    font-size:20px;
+    width:auto;
+}
+label {
+    font-size:23px;
+    display: flex;
+    align-items: center;
+}
+.header {
+    font-size:40px;
+}
+.block-background {
+    width:100%;
+    height:100vh;
+    background-image: url('images/f664bef43ebffbe7746f452b8f89de44.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color:white;
+}
+.container {
+    width:100%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+.background {
+    height:100%;
+}
+.background_black {
+    background-color: rgba(0,0,0,.55);
+    padding:150px 0;
+    position: relative;
+}
