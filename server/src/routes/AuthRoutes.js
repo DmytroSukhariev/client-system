@@ -7,7 +7,7 @@ const User = require('../models/User')
 
 const router = Router()
 
-// /api/auth/register
+
     router.post(
     '/register', 
     [
@@ -46,7 +46,7 @@ const router = Router()
     }
     })
 
-    // /api/auth/login
+
     router.post(
     '/login', 
     [

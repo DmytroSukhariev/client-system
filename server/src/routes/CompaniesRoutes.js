@@ -4,7 +4,7 @@ const company = require('../models/Company')
 
 const router = Router()
 
-// /api/companies/:id
+
 
 router.get(
     '/:id',
@@ -25,7 +25,7 @@ router.get(
     
     })
 
-// /api/companies/edit
+
 router.patch(
         '/edit/:id',
         async (req, res) => {
@@ -45,7 +45,7 @@ router.patch(
             }
         
         })
-// /api/companies/delete
+
 router.delete(
     '/delete/:id',
         async (req, res) => {
