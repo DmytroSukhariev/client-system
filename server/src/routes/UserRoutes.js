@@ -61,9 +61,17 @@ router.delete(
                     res.status(404).json({message: "Пользователь не найден"})
                 }
 
-                // тут должно быть удаление юзера в монго
-                User.remove({_id: userId}, res.status(200).json({ message: "Пользователь удалён" }))
+                // тут уже есть удаление юзера из монго
+                User.deleteOne({_id: userId}, (error) => {
 
+                    if (error) {
+                        res.status(500).json({ message: "Пользователь почему-то не удалён" });
+                        throw new Error(error);
+                    }
+
+                    res.status(200).json({ message: "Пользователь удалён" });
+
+                });
             } catch (e){
                 res.status(500).json( {message: "Что-то пошло не так"})
             }

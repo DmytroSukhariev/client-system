@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev-client": "npm start --prefix client",
-    "dev-server": "npm start --prefix server",
-    "start": "concurrently \"npm run dev-client\" \"npm run dev-server\""
+    "dev-server": "npm run server --prefix server",
+    "start": "concurrently \"npm run dev-client\" \"npm run dev-server\"",
+    "install-frontend": "npm i --prefix client",
+    "install-backend": "npm i --prefix server",
+    "install-ends": "concurrently \"npm run install-frontend\" \"npm run install-backend\""
   },
   "author": "",
   "license": "ISC",
