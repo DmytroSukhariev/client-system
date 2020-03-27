@@ -4,10 +4,10 @@ const mongoose = require('mongoose')
 
 const app = express()
 
-app.use('/api/auth', require('./src/routes/AuthRoutes'))
-app.use('/api/user', require('./src/routes/UserRoutes'))
-app.use('/api/companies', require('./src/routes/CompaniesRoutes'))
-app.use('/api/brands', require('./src/routes/BrandsRoutes'))
+app.use('/auth', require('./src/routes/AuthRoutes'))
+app.use('/user', require('./src/routes/UserRoutes'))
+app.use('/companies', require('./src/routes/CompaniesRoutes'))
+app.use('/brands', require('./src/routes/BrandsRoutes'))
 
 const PORT = config.get('port') || 5000
 

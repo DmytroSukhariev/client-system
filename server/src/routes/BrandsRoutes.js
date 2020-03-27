@@ -11,6 +11,8 @@ router.get(
     async (req, res) => {
         try {
 
+            
+
         } catch (e){
             res.status(500).json( {message: "Что-то пошло не так"})
         }
@@ -26,17 +28,16 @@ router.patch(
             } catch (e){
                 res.status(500).json( {message: "Что-то пошло не так"})
             }
-        
         })
 // /api/brands/delete
 router.delete(
     '/delete/:id',
         async (req, res) => {
             try {
-    
+                
             } catch (e){
                 res.status(500).json( {message: "Что-то пошло не так"})
             }
-        
         })
-
+        
+        module.exports = router

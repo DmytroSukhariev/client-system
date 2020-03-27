@@ -1,7 +1,7 @@
 const {Schema, model, Types} = require('mongoose')
 
 const schema = new Schema({
-    registerDate: {type: Date.now, required: true},
+    registerDate: {type: Date, default: Date.now, required: true},
     registeredBy:{type: Types.ObjectId, ref: 'User', required: true},
     name: {type: String, required: true, unique: true},
     description: {type: String},
