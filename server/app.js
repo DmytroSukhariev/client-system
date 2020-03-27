@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 
 app.use('/auth', require('./src/routes/AuthRoutes'))
-app.use('/user', require('./src/routes/UserRoutes'))
+app.use('/user', require('./src/routes/UsersRoutes'))
 app.use('/companies', require('./src/routes/CompaniesRoutes'))
 app.use('/brands', require('./src/routes/BrandsRoutes'))
 
