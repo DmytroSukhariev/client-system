@@ -1,5 +1,6 @@
 import React from 'react';
-import '../../common-styles.css';
+import '../../common-css/common-styles__registration-login.css';
+import '../../common-css/common-styles__for-everything.css';
 import './log-in.css';
 
 const LogIn : React.FunctionComponent = () => {

@@ -1,6 +1,7 @@
 import React from "react";
-import "../../common-styles.css";
+import "../../common-css/common-styles__registration-login.css";
 import "./registration.css";
+import '../../common-css/common-styles__for-everything.css';
 
 const RegistrationForm : React.FC = () => {
     return (

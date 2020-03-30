@@ -1,3 +1,6 @@
+.container {
+    max-width: 1100px;
+}
 .form__go-sign-up {
     position: absolute;
     right:10px;
@@ -5,6 +8,10 @@
     z-index:1;
     padding:10px 20px;
     text-decoration: none;
+    color:white;
+    background-color:rgb(255, 99, 71);
+    cursor: pointer;
+    margin-top: 0rem;
 }
 .form__form-label {
     margin-top: 2rem;
