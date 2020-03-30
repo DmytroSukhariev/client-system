@@ -12,8 +12,8 @@ const router = Router()
     '/register', 
     [
         check('email', 'Неверный формат').isEmail(),
-        check('password', 'Минимальная длина пароля - 8 символов')
-            .isLength( {min: 6})
+        check('password', 'Минимальная длина пароля - 8 символов').isLength({min: 8})
+            
     ],
     async (req, res) =>{
     try{
@@ -26,7 +26,7 @@ const router = Router()
             })
         }
 
-        const {email, password} = req.body
+        const {firstName, secondName, email, password} = req.body
         
         const candidate = await User.findOne({ email })
 
@@ -35,7 +35,7 @@ const router = Router()
         }
 
         const hashPass = await bcrypt.hash(password, 12)
-        const user = new User({email, password: hashPass})
+        const user = new User({firstName, secondName, email, password: hashPass})
 
         await user.save()
 
@@ -43,6 +43,7 @@ const router = Router()
 
     } catch (e){
         res.status(500).json( {message: "Что-то пошло не так"} )
+        throw new Error(e)
     }
     })
 
@@ -55,18 +56,18 @@ const router = Router()
     ],
     async (req, res) => {
     try{
-        const errors = validationResult(req)
+        // const errors = validationResult(req)
 
-        if (!errors.isEmpty){
-            return res.status(400).json({
-                errors: errors.array(),
-                message: 'Некорректные данные при регистрации'
-            })
-        }
+        // if (!errors.isEmpty){
+        //     return res.status(400).json({
+        //         errors: errors.array(),
+        //         message: 'Некорректные данные при регистрации'
+        //     })
+        // }
 
        const {email, password} = req.body
-
-        const user = await User.findOne({ email })
+       
+        const user = await User.findOne({email})
 
         if(!user){
             return res.status(400).json({message: "Пользователь не найден"})

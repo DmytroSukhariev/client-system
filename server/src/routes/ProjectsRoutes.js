@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const config = require('config')
-const Company = require('../models/Company')
+const Project = require('../models/Project')
 
 const router = Router()
 
@@ -8,17 +8,18 @@ router.put(
     '/put',
     async (req, res) => {
          try{
-             const {registeredBy, name, description} = req.body
+             const {registeredBy, name, startTerm, finishTerm} = req.body
 
-            const newCompany = new Company({
+            const newProject = new Project({
                 registerDate: Date.now(),
                 registeredBy,
                 name,
-                description
+                startTerm,
+                finishTerm
              })
-             newCompany.save()
+             newProject.save()
 
-             res.status(201).json({message: "Компания добавлена"})
+             res.status(201).json({message: "Проект добавлен"})
             if(!req.body) return res.status(400)
             
          } catch (e){
@@ -32,15 +33,15 @@ router.get(
     '/:id',
     async (req, res) => {
         try {
-            const companyId = req.params.id
+            const projectId = req.params.id
 
-            const company = await Company.findOne({_id: companyId })
+            const project = await Project.findOne({_id: projectId })
 
-            if(!company){
-                res.status(404).json({message: "Компания не найдена"})
+            if(!project){
+                res.status(404).json({message: "Проект не найдена"})
             }
 
-            res.status(200).json({ company })
+            res.status(200).json({ project })
         } catch (e){
             res.status(500).json( {message: "Что-то пошло не так"})
         }
@@ -64,18 +65,18 @@ router.patch(
         '/edit/:id',
         async (req, res) => {
             try {
-                const companyId = req.params.id
+                const projectId = req.params.id
 
-                const company = await Company.findOne({_id: companyId})
+                const project = await Project.findOne({_id: projectId})
 
-                if(!company){
-                    res.status(404).json({message: "Компания не найдена"})
+                if(!project){
+                    res.status(404).json({message: "Проект не найден"})
                 }
                 const newData = req.body
 
-                Company.updateOne({_id: companyId}, newData, function(err, company){
+                Project.updateOne({_id: projectId}, newData, function(err, project){
                     if(err) return console.log(err); 
-                    res.send(company);
+                    res.send(project);
                     
                 })
                 
@@ -89,22 +90,22 @@ router.delete(
         '/delete/:id',
             async (req, res) => {
             try {
-                const companyId = req.params.id
+                const projectId = req.params.id
 
-                const company = await Company.findOne({_id: companyId})
+                const project = await Project.findOne({_id: projectId})
 
-                if(!company){
-                    res.status(404).json({message: "Компания не найдена"})
+                if(!project){
+                    res.status(404).json({message: "Проект не найден"})
                 }
 
-                Company.deleteOne({_id: companyId}, (error) => {
+                Project.deleteOne({_id: projectId}, (error) => {
 
                     if (error) {
-                        res.status(500).json({ message: "Компания не удалена" });
+                        res.status(500).json({ message: "Проект не удален" });
                         throw new Error(error);
                     }
 
-                    res.status(200).json({message: "Компания удалена"})
+                    res.status(200).json({message: "Проект удалён"})
 
                 });
                 
