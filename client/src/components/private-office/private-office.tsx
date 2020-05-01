@@ -1,17 +1,18 @@
-import React from "react";
-import '../../common-css/common-styles__for-everything.css';
-import '../../common-css/common-styles__personal-area.css';
-import PersonalInfo from "./private-office__personal-info/private-office__personal-info";
-import CompanyInfo from "./private-office__company/private-office__company";
-import Welcome from "./private-office__welcome/private-office__welcome";
-import AsideBar from "./private-office__sidebar/private-office__sidebar";
+import React,{Component} from "react";
+import './personal-area.scss';
+import BrandInfo from "./brand";
+import Welcome from "./welcome";
+import AsideBar from "./sidebar";
+import CompaniesAll from "./intro-companies";
+import CompanyInfo from "./company";
+import PersonalInfo from "./personal-info";
 import {BrowserRouter as Router,Route} from "react-router-dom";
-import {ICompanyInfo,ArrayCompanyData} from "./private-office__test-data/private-office__test-data";
+import {CompanyInfoForData,ArrayCompanyData} from "./test-data/text-data";
 
 
 
 interface IState {
-    info:Array<ICompanyInfo>
+    info:Array<CompanyInfoForData>
 }
 interface IProps {
 
@@ -19,15 +20,11 @@ interface IProps {
 
 
 
-class PersonalArea extends React.Component<IProps, IState>{
+class PersonalArea extends Component<IProps, IState>{
 
 
-
-    constructor(props : IProps) {
-        super(props);
-        this.state = {
-            info:[]
-        }
+    state = {
+        info:[]
     }
 
 
@@ -42,40 +39,27 @@ class PersonalArea extends React.Component<IProps, IState>{
 
     render() {
 
-
-        const arrayOfCompanyRoutes : React.ReactNode[] = ArrayCompanyData.map(data => {
-            const {logo,description} = data;
-            const url = `/companies/${logo}`;
-            return (
-               <Route key={logo} path={url} render={() => {
-                   return <CompanyInfo logo={logo} info={description}/>
-               }}/>
-           );
-        });
-
-
-
-        const arrayOfCompanies : string[] = ArrayCompanyData.map(data => {
-                return data.logo;
-            }
-        )
-
-
-
-
+        const { info } = this.state;
 
         return (
             <Router>
-                <div className="background-test">
-                    <div className="black"></div>
+                <div className="background-image">
+                    <div className="background-image__background"></div>
                 </div>
-                <div className="container">
+                <div className="container container_big container_cent">
                     <div className="personal-area">
-                        <AsideBar companies={arrayOfCompanies}/>
-                        <div className="content">
+                        <AsideBar/>
+                        <div className="personal-area__content content">
                             <Route path="/" exact component={Welcome} />
                             <Route path="/personal-info" component={PersonalInfo}/>
-                            {arrayOfCompanyRoutes}
+                            <Route path="/companies"  exact render={({match}) => {
+                                return <CompaniesAll arrayOfCompanyInfo={info} match={match} />
+                                }
+                            }/>
+                            <Route path="/companies/:company" render={({match}) => {
+                                const { company } = match.params;
+                                return <CompanyInfo company={company} />
+                            }} />
                         </div>
                     </div>
                 </div>
