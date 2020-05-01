@@ -1,31 +1,34 @@
 import {Router} from 'express'
 import Brand from '../models/Brand'
+import checkTakenBrandName from '../middleware/BrandMiddleware'
+import brandErrors from '../errors/brand-errors'
+
 import {Request, Response} from 'express'
 
 const router = Router()
 
 router.put(
-    '/put', 
+    '/put',
+    checkTakenBrandName, 
     async (req: Request, res: Response) => {
-            try{
-            const {registeredBy, brandName, brandDescription, ownerCompany} = req.body
-            await Brand.create({
-                registerDate: Date.now(),
-                registeredBy,
-                brandName,
-                brandDescription,
-                ownerCompany
-                })
+        try{
+        const {registeredBy, brandName, brandDescription, ownerCompany} = req.body
 
-            res.status(201).json({message: "Бренд добавлен"})
-            if(!req.body) return res.status(400)
-            
-            } catch (e){
-            res.status(500).json({message: "Что-то пошло не так"})
-            throw new Error(e)
-            }
+        await Brand.create({
+            registerDate: Date.now(),
+            registeredBy,
+            brandName,
+            brandDescription,
+            ownerCompany
+            })
 
-    })
+        res.status(201).json({message: "Бренд добавлен"})
+        if(!req.body) return res.status(400)
+        
+        } catch (error){
+            res.status(500).json(brandErrors(error))  
+        }
+ })
 
 router.get(
     '/:id', 
@@ -43,7 +46,7 @@ router.get(
             
 
         } catch (e){
-            res.status(500).json( {message: "Что-то пошло не так"})
+            res.status(500).json({message: "Что-то пошло не так"})
         }
 
     })

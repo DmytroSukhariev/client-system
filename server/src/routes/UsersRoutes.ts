@@ -1,12 +1,15 @@
 import {Router} from 'express'
 import bcrypt from 'bcryptjs'
 import User from '../models/User'
+import authErrors from '../errors/auth-errors'
 import {Request, Response} from 'express'
+import checkTakenEmail from '../middleware/AuthMiddleware'
 
 const router = Router()
 
 router.put(
     '/put', 
+    checkTakenEmail,
     async (req: Request, res: Response) => {
          try{
             const {email, password, firstName, secondName, phoneNumber} = req.body
@@ -26,7 +29,7 @@ router.put(
              if(!req.body) return res.status(400)
             
             } catch (error){
-                // res.status(500).json(AuthErrors(error))
+                res.status(500).json(authErrors(error))
             }
 });
 router.get(

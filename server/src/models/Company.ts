@@ -10,7 +10,7 @@ class Company{
     @prop({required: true, ref: 'OwnerId'})
     registeredBy!: Types.ObjectId
 
-    @prop({required: true, match: pattern})
+    @prop({required: true, match: pattern, minlength: 3, maxlength: 40})
     name!: string
 
     @prop()

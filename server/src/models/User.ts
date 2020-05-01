@@ -12,10 +12,10 @@ class User{
     @prop({required: true, match: emailPattern})
     email!: string
 
-    @prop({required: true})
+    @prop({required: true, minlength: 8, maxlength: 100})
     password!: string
 
-    @prop({required: true, match: justPattern})
+    @prop({required: true, match: justPattern, minlength: 2, maxlength: 20})
     firstName!: string
 
     @prop({required: true, match: justPattern})

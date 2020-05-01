@@ -1,10 +1,14 @@
 import {Request, Response, Router} from 'express'
 import Company from '../models/Company'
+import companyErrors from '../errors/company-errors'
+import checkTakenCompanyName from '../middleware/CompanyMiddleware';
+
 
 const router = Router()
 
 router.put(
     '/put', 
+    checkTakenCompanyName,
     async (req: Request, res: Response) => {
          try{
              const {registeredBy, name, description} = req.body
@@ -18,9 +22,8 @@ router.put(
             res.status(201).json({message: "Компания добавлена"})
             if(!req.body) return res.status(400)
             
-         } catch (e){
-            res.status(500).json({message: "Что-то пошло не так"})
-            throw new Error(e)
+         } catch (error){
+            res.status(500).json(companyErrors(error))
          }
     
 });

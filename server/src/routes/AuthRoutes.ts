@@ -9,24 +9,27 @@ import User from '../models/User'
 
 const router = Router()
 
-router.post('/register', checkTakenEmail, async (req: Request, res: Response) => {
-    try{
-        const {email, password, firstName, secondName, phoneNumber} = req.body
-        const hashPass = await bcrypt.hash(password, 12)
-        
-        const user = await User.create({
-            email,
-            password: hashPass, 
-            firstName, 
-            secondName,
-            phoneNumber
-        })
-        
-        res.status(201).json({message: "Пользователь создан"})
+router.post(
+    '/register', 
+    checkTakenEmail, 
+    async (req: Request, res: Response) => {
+        try{
+            const {email, password, firstName, secondName, phoneNumber} = req.body
+            const hashPass = await bcrypt.hash(password, 12)
+            
+            await User.create({
+                email,
+                password: hashPass, 
+                firstName, 
+                secondName,
+                phoneNumber
+            })
+            
+            res.status(201).json({message: "Пользователь создан"})
 
-    } catch (error){
-        res.status(500).json(authErrors(error))
-    }
+        } catch (error){
+            res.status(500).json(authErrors(error))
+        }
 })
 
 
@@ -53,7 +56,6 @@ router.post('/register', checkTakenEmail, async (req: Request, res: Response) =>
         )
 
         res.json({ token, userId: user.id })
-
 
     } catch (e){
         res.status(500).json( {message: "Что-то пошло не так"} )

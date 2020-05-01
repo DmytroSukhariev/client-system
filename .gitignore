@@ -1,4 +1,3 @@
 node_modules/
-server/src/middleware
 server/node_modules/
 client/node_modules/

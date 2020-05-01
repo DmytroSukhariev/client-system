@@ -1,10 +1,13 @@
 import {Request, Response, Router} from 'express'
 import Project from '../models/Project'
+import checkTakenProjectName from '../middleware/ProjectMiddleware'
+import projectErrors from '../errors/project-errors'
 
 const router = Router()
 
 router.put(
-    '/put', 
+    '/put',
+    checkTakenProjectName, 
     async (req: Request, res: Response) => {
     try{
         const {registeredBy, name, startTerm, finishTerm} = req.body
@@ -20,12 +23,10 @@ router.put(
         res.status(201).json({message: "Проект добавлен"})
         if(!req.body) return res.status(400)
     
-    } catch (e) {
-        res.status(500).json({message: "Что-то пошло не так"})
-        throw new Error(e)
+    } catch (error) {
+        res.status(500).json(projectErrors(error))
     }
-    
-});
+})
 
 router.get(
     '/:id', 
