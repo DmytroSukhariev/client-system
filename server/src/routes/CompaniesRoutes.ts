@@ -1,24 +1,21 @@
-const {Router} = require('express')
-const config = require('config')
-const Company = require('../models/Company')
+import {Request, Response, Router} from 'express'
+import Company from '../models/Company'
 
 const router = Router()
 
 router.put(
-    '/put',
-    async (req, res) => {
+    '/put', 
+    async (req: Request, res: Response) => {
          try{
              const {registeredBy, name, description} = req.body
 
-            const newCompany = new Company({
-                registerDate: Date.now(),
+            await Company.create({
                 registeredBy,
                 name,
                 description
-             })
-             newCompany.save()
+            })
 
-             res.status(201).json({message: "Компания добавлена"})
+            res.status(201).json({message: "Компания добавлена"})
             if(!req.body) return res.status(400)
             
          } catch (e){
@@ -29,8 +26,8 @@ router.put(
 });
 
 router.get(
-    '/:id',
-    async (req, res) => {
+    '/:id', 
+    async (req: Request, res: Response) => {
         try {
             const companyId = req.params.id
 
@@ -60,9 +57,10 @@ router.get(
     "description": "Bodya vsyo takje kok"
  * }
  */
+
 router.patch(
-        '/edit/:id',
-        async (req, res) => {
+    '/edit/:id', 
+    async (req: Request, res: Response) => {
             try {
                 const companyId = req.params.id
 
@@ -86,8 +84,8 @@ router.patch(
         })
 
 router.delete(
-        '/delete/:id',
-            async (req, res) => {
+    '/delete/:id', 
+    async (req: Request, res: Response) => {
             try {
                 const companyId = req.params.id
 
@@ -111,7 +109,6 @@ router.delete(
             } catch (e){
                 res.status(500).json( {message: "Что-то пошло не так"})
             }
-        
         })
 
 module.exports = router

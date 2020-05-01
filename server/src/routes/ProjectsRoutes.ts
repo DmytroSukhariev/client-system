@@ -1,22 +1,21 @@
-const {Router} = require('express')
-const config = require('config')
-const Project = require('../models/Project')
+import {Request, Response, Router} from 'express'
+import Project from '../models/Project'
 
 const router = Router()
 
-router.put('/put', async (req, res) => {
+router.put(
+    '/put', 
+    async (req: Request, res: Response) => {
     try{
         const {registeredBy, name, startTerm, finishTerm} = req.body
 
-        const newProject = new Project({
-        registerDate: Date.now(),
-        registeredBy,
-        name,
-        startTerm,
-        finishTerm
+        await Project.create({
+            registerDate: Date.now(),
+            registeredBy,
+            name,
+            startTerm,
+            finishTerm
         })
-
-        newProject.save()
 
         res.status(201).json({message: "Проект добавлен"})
         if(!req.body) return res.status(400)
@@ -28,21 +27,22 @@ router.put('/put', async (req, res) => {
     
 });
 
-router.get('/:id', async (req, res) => {
-    try {
-        const projectId = req.params.id
+router.get(
+    '/:id', 
+    async (req: Request, res: Response) => {
+        try {
+            const projectId = req.params.id
 
-        const project = await Project.findOne({_id: projectId })
+            const project = await Project.findOne({_id: projectId })
 
-        if(!project){
-            res.status(404).json({message: "Проект не найдена"})
+            if(!project){
+                res.status(404).json({message: "Проект не найдена"})
+            }
+
+            res.status(200).json({ project })
+        } catch (e) {
+            res.status(500).json( {message: "Что-то пошло не так"})
         }
-
-        res.status(200).json({ project })
-    } catch (e) {
-        res.status(500).json( {message: "Что-то пошло не так"})
-    }
-    
 });
 
 /**
@@ -58,8 +58,10 @@ router.get('/:id', async (req, res) => {
     "description": "Bodya vsyo takje kok"
  * }
  */
-router.patch('/edit/:id', async (req, res) => {
-    try {
+router.patch(
+    '/edit/:id', 
+    async (req: Request, res: Response) => {
+        try {
         const projectId = req.params.id
 
         const project = await Project.findOne({_id: projectId})
@@ -83,7 +85,7 @@ router.patch('/edit/:id', async (req, res) => {
 
 router.delete(
         '/delete/:id',
-            async (req, res) => {
+        async (req: Request, res: Response) => {
             try {
                 const projectId = req.params.id
 
