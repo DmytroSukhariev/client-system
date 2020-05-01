@@ -1,0 +1,32 @@
+@import "scss-variables";
+
+.input {
+    &__field {
+        height: 100%;
+        width:100%;
+        font-size:22px;
+        padding-left:20px;
+        padding-right: 10px;
+        border-radius: 4px;
+
+        &_txtar {
+            padding-top:8px;
+        }
+
+        &_submit {
+            padding:10px 40px;
+            font-size:20px;
+            color:white;
+            background-color:$color-submitbtn;
+            font-weight: 400;
+            cursor: pointer;
+            height: auto;
+            width: auto;
+        }
+    }
+    &__label {
+        margin-bottom: 10px;
+        font-family: Montserrat-Light;
+        font-size:23px;
+    }
+}

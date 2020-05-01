@@ -1,6 +1,6 @@
-import React,{Fragment} from "react";
+import React,{Fragment,FunctionComponent} from "react";
 
-const PersonalInfo : React.FC = () => {
+const PersonalInfo : FunctionComponent = () => {
     return (
         <Fragment>
             <fieldset className="content__block">

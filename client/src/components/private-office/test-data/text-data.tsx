@@ -1,9 +1,9 @@
- interface ICompanyInfo {
+ interface CompanyInfoForData {
     logo:string,
     description:string
 }
 
- const ArrayCompanyData:Array<ICompanyInfo> = [
+ const ArrayCompanyData:Array<CompanyInfoForData> = [
      {
          logo:"Yandex",
          description:`
@@ -33,4 +33,4 @@
 
 ]
 
- export {ICompanyInfo,ArrayCompanyData}
+ export {CompanyInfoForData,ArrayCompanyData}
