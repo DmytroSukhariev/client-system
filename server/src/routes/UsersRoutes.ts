@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import User from '../models/User'
 import authErrors from '../errors/auth-errors'
 import {Request, Response} from 'express'
-import checkTakenEmail from '../middleware/AuthMiddleware'
+import checkTakenEmail from '../middleware/AuthEmailMiddleware'
 
 const router = Router()
 
