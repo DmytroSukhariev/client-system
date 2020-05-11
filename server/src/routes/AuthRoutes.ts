@@ -1,9 +1,8 @@
-import {Router} from 'express'
+import {Router, Request, Response} from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import config from 'config'
-import {Request, Response} from 'express'
-import checkTakenEmail from '../middleware/AuthEmailMiddleware'
+import checkTakenData from '../middleware/AuthEmailMiddleware'
 import checkLength from '../middleware/AuthPassMiddleware'
 import authErrors from '../errors/auth-errors'
 import User from '../models/User'
@@ -12,7 +11,7 @@ const router = Router()
 
 router.post(
     '/register', 
-    checkTakenEmail,
+    checkTakenData,
     checkLength, 
     async (req: Request, res: Response) => {
         try{
