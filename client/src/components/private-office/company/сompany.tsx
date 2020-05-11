@@ -3,6 +3,7 @@ import {ArrayCompanyData,CompanyInfoForData} from "../test-data/text-data";
 
 
 
+
 interface IState {
     company: CompanyInfoForData
 }
