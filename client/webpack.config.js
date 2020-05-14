@@ -25,7 +25,7 @@ module.exports = {
                             name:'[name]-[sha1:hash:7].[ext]'
                         }
                     }
-                    ]
+                ]
             },
             //
             //Loading fonts
@@ -70,11 +70,12 @@ module.exports = {
         ]
     },
     output: {
-        filename: "bundle.js"
+        filename: "bundle.js",
+        publicPath:"/",
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title:"First Pages",
+            title:"CRM Application",
             template: "public/index.html"
         }),
         new MiniCssExtractPlugin({

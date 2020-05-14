@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment,FunctionComponent} from 'react';
 import ReactDOM from 'react-dom';
 import LogIn from "./components/log-in";
 import RegistrationForm from "./components/register-form/registration";
@@ -7,9 +7,14 @@ import "./common-css/general.scss"
 
 
 
-const App : React.FC = () => {
+const App : FunctionComponent = () => {
     return (
-        <PersonalArea />
+        <Fragment>
+            <div className="background-image">
+                <div className="background-image__background"></div>
+            </div>
+            <RegistrationForm />
+        </Fragment>
     );
 }
 

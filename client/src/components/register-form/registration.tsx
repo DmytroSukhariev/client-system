@@ -1,53 +1,125 @@
-import React,{Fragment} from "react";
+import React,{Component} from "react";
+import {Input,Form} from "../helpers/input";
+
+
 import "../../common-css/inputs.scss";
-import "./registration.scss";
+import '../../common-css/action-page.scss';
 
 
-const RegistrationForm : React.FC = () => {
-    return (
-        <Fragment>
-            <div className="background-image">
-                <div className="background-image__background"></div>
-            </div>
 
-              <div className="registration-form">
-                  <div className="container container_cent container_sm">
-                    <div className="registration-form__inner">
-                        <h1 className="registration-form__header">Регистрация</h1>
-                        <div className="registration-form__block">
-                            <div className="registration-form__row">
-                                <div className="registration-form__input input">
-                                    <input type="text" id="name" placeholder="Ваше имя" className="input__field"/>
-                                </div>
-                                <div className="registration-form__input input">
-                                    <input type="text" id="surname" placeholder="Ваша фамилия" className="input__field"/>
-                                </div>
-                            </div>
-                            <div className="registration-form__input input">
-                                <input type="email" id="email" placeholder="Ваш email" className="input__field"/>
-                            </div>
-                            <div className="registration-form__input input">
-                                <input type="password" id="password" placeholder="Ваш пароль" className="input__field"/>
-                            </div>
-                            <div className="registration-form__input input">
-                                <input type="email" id="password-repeat" placeholder="Подтвердите ваш пароль" className="input__field"/>
-                            </div>
-                            <div className="registration-form__input input">
-                                <input type="text" id="firm" placeholder="Название вашей фирмы" className="input__field"/>
-                            </div>
-                            <div className="registration-form__input registration-form__input_txtar input">
-                                <textarea placeholder="Чем занимаетя ваша фирма?" className="input__field input__field_txtar"></textarea>
-                            </div>
-                            <div className="registration-form__input">
-                                <input type="submit" id="go-register" value="Зарегистрироваться" disabled className="input__field input__field_submit"/>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-        </Fragment>
-
-    );
+interface IState {
+    name:string,
+    surname:string,
+    email:string,
+    password:string,
+    passwordRepeat:string,
+    firm:string,
+    occupation:string
 }
 
-export default  RegistrationForm;
+interface IDataServer {
+    firstName:string,
+    secondName:string,
+    email:string,
+    password:string,
+    phoneNumber:string
+}
+
+
+export default class RegistrationForm extends Component<any,IState> {
+
+    state = {
+        name:'',
+        surname:'',
+        email:'',
+        password:'',
+        passwordRepeat:'',
+        firm:'',
+        occupation:''
+    }
+
+
+    onChangeField = (field : string) => (fieldValue : string) : void => {
+        const newState = { [field] : fieldValue} as Pick<IState, keyof IState>
+        this.setState(newState)
+    }
+
+    onSubmitForm = (e : React.FormEvent<HTMLFormElement>) : void => {
+        e.preventDefault();
+
+        const objectForm : IDataServer = {
+            email:this.state.email,
+            password:this.state.password,
+            firstName:this.state.name,
+            secondName:this.state.surname,
+            phoneNumber:''
+        }
+
+        fetch('http://localhost:5000/auth/register',{
+            method:'POST',
+            body:JSON.stringify(objectForm),
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json'
+            }
+        })
+            .then(() => console.log('done'))
+    }
+
+
+
+
+
+    render() {
+
+        return (
+            <div className="action-page">
+                <div className="container container_cent container_sm">
+                    <div className="action-page__inner">
+                        <h1 className="action-page__title action-page__title_center">Регистрация</h1>
+
+                        <Form class="registration" onSubmitForm={this.onSubmitForm}>
+
+                            <Input type="text"
+                                   placeholder="Ваше имя"
+                                   modifyClassBlock="form_registration__input form_registration__input_name"
+                                   onChangeField={this.onChangeField('name')}/>
+
+                            <Input type="text"
+                                   placeholder="Ваша фамилия"
+                                   modifyClassBlock="form_registration__input form_registration__input_surname"
+                                   onChangeField={this.onChangeField('surname')}/>
+
+                            <Input type="email"
+                                   placeholder="Ваша почта"
+                                   modifyClassBlock="form_registration__input form_registration__input_email"
+                                   onChangeField={this.onChangeField('email')}/>
+
+                            <Input type="password"
+                                   placeholder="Ваш пароль"
+                                   modifyClassBlock="form_registration__input form_registration__input_password"
+                                   onChangeField={this.onChangeField('password')}/>
+
+                            <Input type="password"
+                                   placeholder="Подтвердите ваш пароль"
+                                   modifyClassBlock="form_registration__input form_registration__input_password-repeat"
+                                   onChangeField={this.onChangeField('passwordRepeat')}/>
+
+                            <Input type="text"
+                                   placeholder="Название вашей фирмы"
+                                   modifyClassBlock="form_registration__input form_registration__input_firm"
+                                   onChangeField={this.onChangeField('firm')}/>
+
+                            <Input type="submit"
+                                   value="Зарегистрироваться"
+                                   modifyClassBlock="form_registration__input form_registration__input_submit"
+                                   modifyClassInput="input__field_submit"/>
+
+                        </Form>
+
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}

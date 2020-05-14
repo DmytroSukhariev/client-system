@@ -2,7 +2,7 @@
     "port": 5000,
     "mongoUri": "mongodb+srv://kirbytwister:a1501s0607@cluster0-ayajx.mongodb.net/app?retryWrites=true&w=majority",
     "jwtSecret": "ortem osu kek",
-    "corsWhitelist": [
-        "localhost:8000"
+    "corsWhiteList": [
+        "http://localhost:8080"
     ]
 }
