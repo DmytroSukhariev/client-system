@@ -1,15 +1,16 @@
 import {Router} from 'express'
 import bcrypt from 'bcryptjs'
 import User from '../models/User'
-import authErrors from '../errors/auth-errors'
+import authErrors from '../errors/auth-error-messages'
 import {Request, Response} from 'express'
-import checkTakenEmail from '../middleware/AuthEmailMiddleware'
+import checkTakenData from '../middleware/AuthEmailMiddleware'
+import checkNewData from '../middleware/CheckNewData'
 
 const router = Router()
 
 router.put(
     '/put', 
-    checkTakenEmail,
+    checkTakenData,
     async (req: Request, res: Response) => {
          try{
             const {email, password, firstName, secondName, phoneNumber} = req.body
@@ -22,7 +23,6 @@ router.put(
                 secondName,
                 phoneNumber
             })
-    
             await user.save()
              
              res.status(201).json({message: "Пользователь добавлен"})
@@ -71,6 +71,7 @@ router.get(
 
 router.patch(
     '/edit/:id', 
+    checkNewData,
     async (req: Request, res: Response) => {
             try {
                 const userId = req.params.id
@@ -79,11 +80,14 @@ router.patch(
 
                 if(!user){
                     res.status(404).json({message: "Пользователь не найден"})
-                }          
-                const newData = req.body
-                User.updateOne({_id: userId}, newData, function(err, user){
+                }    
+
+                const {email, password, firstName, secondName, phoneNumber} = req.body 
+                const newData = {email, password, firstName, secondName, phoneNumber}
+
+                User.updateOne({_id: userId}, newData, function(err){
                     if(err) return console.log(err); 
-                    res.send(user);
+                    res.status(200).json({message: "Данные изменены"});
                 });
                     
             } catch (e){

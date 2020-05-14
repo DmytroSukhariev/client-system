@@ -1,9 +1,24 @@
 import express from 'express'
-import config from 'config'
+import config, {IConfig} from 'config'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
+import cors, { CorsOptions } from 'cors'
 
+const corsWhitelist : string[] = config.get('corsWhiteList')
 const app = express()
+
+const corsOptions: CorsOptions = {
+    origin: (origin, callback) => {
+        console.log(origin)
+        if (corsWhitelist.includes(origin!)) {
+            callback(null, true)
+        } else {
+            callback(new Error(`${origin} Not allowed by CORS`))
+        }
+    }
+}
+const PORT = config.get('port')
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -15,8 +30,7 @@ app.use('/user', require('./routes/UsersRoutes'))
 app.use('/companies', require('./routes/CompaniesRoutes'))
 app.use('/brands', require('./routes/BrandsRoutes'))
 app.use('/projects', require('./routes/ProjectsRoutes'))
-
-const PORT = config.get('port') || 5000
+app.use(cors(corsOptions));
 
 async function start(){
     try{
