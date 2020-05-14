@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import config from 'config'
 import checkTakenData from '../middleware/AuthEmailMiddleware'
 import checkLength from '../middleware/AuthPassMiddleware'
-import authErrors from '../errors/auth-error-messages'
+import authErrors from '../errors/auth-errors-messages'
 import User from '../models/User'
 
 const router = Router()
