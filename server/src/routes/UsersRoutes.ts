@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import bcrypt from 'bcryptjs'
 import User from '../models/User'
-import authErrors from '../errors/auth-error-messages'
+import authErrors from '../errors/auth-errors-messages'
 import {Request, Response} from 'express'
 import checkTakenData from '../middleware/AuthEmailMiddleware'
 import checkNewData from '../middleware/CheckNewData'
